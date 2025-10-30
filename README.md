@@ -100,6 +100,7 @@ Response (200):
     "updatedAt": "2025-10-29T12:34:56.000Z"
   }
 ]
+    "cached": true
 ```
 
 Notes:
