@@ -30,6 +30,14 @@ async function login(req, res, next) {
 	} catch (e) { return next(e); }
 }
 
-module.exports = { signup, login };
+async function getCurrentUser(req, res, next) {
+	try {
+		const user = await User.findById(req.user.id).select('-password');
+		if (!user) return res.status(404).json({ success: false, error: 'User not found' });
+		return res.json({ success: true, data: user });
+	} catch (e) { return next(e); }
+}
+
+module.exports = { signup, login, getCurrentUser };
 
 
