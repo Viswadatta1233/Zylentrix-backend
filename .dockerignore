@@ -1,0 +1,17 @@
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs
+.dist
+.tests
+.git
+.gitignore
+Dockerfile
+README.md
+*.md
+.env
+.env.*
+coverage
+
+
