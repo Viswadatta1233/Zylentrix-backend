@@ -1,10 +1,10 @@
 Mini Task Management Backend
 
-Node.js + Express + MongoDB + Redis(caching) backend with JWT auth, Zod validation, Winston logging, rate limiting, caching, and a cron-based deadline notifier for Flutter.
+Node.js + Express + MongoDB + **Redis(caching)** backend with JWT auth, Zod validation, Winston logging, rate limiting, caching, and a cron-based deadline notifier for Flutter.
 
 ## Enhanced Features
 - Redis caching for faster reads on `GET /api/tasks`
-- Security hardening with Helmet, CORS, input validation (Zod), and JWT
+- Security hardening with **Helmet, CORS, input validation (Zod), and JWT**
 - Rate limiting on login to mitigate brute-force attempts (highlighted below)
 - Structured logging with Winston + daily rotation
 - Cron-based notifier for tasks nearing deadlines (15 min window)
@@ -100,11 +100,11 @@ Response (200):
     "updatedAt": "2025-10-29T12:34:56.000Z"
   }
 ]
-    "cached": true
+**    "cached": true**
 ```
 
 Notes:
-- Response may be served from Redis cache. Cache is invalidated on create/update/delete
+- Response may be served from Redis cache on cache hit. Cache is invalidated on create/update/delete
 
 Errors:
 - 401 Unauthorized
@@ -200,19 +200,16 @@ MONGODB_DB=zylentrix
 JWT_SECRET=supersecret_jwt_key_change_me
 JWT_EXPIRES_IN=7d
 CORS_ORIGIN=*
-REDIS_URL=redis://127.0.0.1:6379
-NOTIFICATION_WEBHOOK_URL=
+REDIS_URL=redis:url:6379
+
 ```
 
-Notes
-- Files kept <=150 lines.
-- Scheduler posts to NOTIFICATION_WEBHOOK_URL your Flutter backend should handle.
 
 Scripts
 - npm run dev: nodemon
-- npm test: Jest tests (skeleton)
 
-## Docker
+
+## Docker-Setup
 Build image:
 ```bash
 docker build -t zylentrix-api:latest .
@@ -228,6 +225,7 @@ docker run --name zylentrix-api \
 ```
 
 Notes:
+**-Be careful and make sure that the app inside the container should be able to communicate with redis, for deployment I have created a seperate Redis Instance in render only which will support the internal network communication between the render-backend+render-redis instances.**
 - Ensure your MongoDB and Redis are reachable from inside the container (use host networking or proper URIs)
 - Set `CORS_ORIGIN` to your frontend origin(s) or `*` for development
 
